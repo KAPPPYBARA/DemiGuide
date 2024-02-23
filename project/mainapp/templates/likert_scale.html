@@ -4,7 +4,7 @@
 <html>
     <head>
         <link rel="stylesheet" href="{% static 'css/form.css' %}">
-        <title>DemiGuide | Interest</title>
+        <title>AcademiGuide</title>
     </head>
 
     <body>
@@ -35,11 +35,13 @@
 
                 <!-- Check if last to display submit button -->
                 {% if forloop.last %}
-                    <button type="submit">Proceed</button>
+                    <button type="button" disabled>Next</button>
                 {% else %}
                     <button type="button" onclick="nextForm('{{ forloop.counter }}')">Next</button>
                 {% endif %}
             </form>
         {% endfor %}
+
+        <button onclick="submitForms()">View Result</button>
     </body>
 </html>
