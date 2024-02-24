@@ -8,6 +8,23 @@ function prevForm(flag) {
     document.getElementById("form" + (parseInt(flag) - 1)).style.display = 'block';
 }
 
+function checkForm() {
+    var form = document.getElementById("form1");
+    var inputs = form.getElementsByTagName("input");
+
+    for(var i = 0; i < inputs.length; i++) {
+        if(inputs[i].hasAttribute("required")) {
+            alert(inputs[i].value);
+            if(inputs[i].value == "") {
+                alert("NOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO");
+                return false;
+            }
+        }
+    }
+    alert("TRUE");
+    return true;
+}
+
 function submitForms() {
     document.getElementById("form1").submit();
     document.getElementById("form2").submit();

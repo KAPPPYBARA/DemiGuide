@@ -10,38 +10,37 @@
     <body>
         <script src="{% static 'js/form.js' %}"></script>
 
-        {% for questions in batch %}
-            <form action="submit/" method="post" id="form{{ forloop.counter }}">
-                {% csrf_token %}
-                {% for question in questions  %}
-                    <h2>{{ question }}</h2>
-                    <div style="display: flex;">
-                        <label>Less Likely</label>
-                        <input type="radio" name="likert{{ forloop.counter }}" required>
-                        <input type="radio" name="likert{{ forloop.counter }}">
-                        <input type="radio" name="likert{{ forloop.counter }}">
-                        <input type="radio" name="likert{{ forloop.counter }}">
-                        <input type="radio" name="likert{{ forloop.counter }}">
-                        <label>Most Likely</label>
-                    </div>
-                {% endfor %}
+        <form action="submit/" method="post">
+            {% for questions in batch %}
+                <article id="form{{ forloop.counter }}">
+                    {% csrf_token %}
+                    {% for question in questions  %}
+                        <h2>{{ question }}</h2>
+                        <div style="display: flex;">
+                            <label>Less Likely</label>
+                            <input type="radio" value="1" name="likert{{ forloop.parentloop.counter }}{{ forloop.counter }}" required>
+                            <input type="radio" value="2" name="likert{{ forloop.parentloop.counter }}{{ forloop.counter }}">
+                            <input type="radio" value="3" name="likert{{ forloop.parentloop.counter }}{{ forloop.counter }}">
+                            <input type="radio" value="4" name="likert{{ forloop.parentloop.counter }}{{ forloop.counter }}">
+                            <input type="radio" value="5" name="likert{{ forloop.parentloop.counter }}{{ forloop.counter }}">
+                            <label>Most Likely</label>
+                        </div>
+                    {% endfor %}
 
-                <!-- Check if first to display disabled back button -->
-                {% if forloop.first %}
-                    <button type="button" disabled>Back</button>
-                {% else %}
-                    <button type="button" onclick="prevForm('{{ forloop.counter }}')">Back</button>
-                {% endif %}
+                    {% if forloop.first %}
+                        <button type="button" disabled>Back</button>
+                    {% else %}
+                        <button type="button" onclick="prevForm('{{ forloop.counter }}')">Back</button>
+                    {% endif %}
 
-                <!-- Check if last to display submit button -->
-                {% if forloop.last %}
-                    <button type="button" disabled>Next</button>
-                {% else %}
-                    <button type="button" onclick="nextForm('{{ forloop.counter }}')">Next</button>
-                {% endif %}
-            </form>
-        {% endfor %}
-
-        <button onclick="submitForms()">View Result</button>
+                    {% if forloop.last %}
+                        <button type="button" disabled>Next</button>
+                    {% else %}
+                        <button type="button" onclick="nextForm('{{ forloop.counter }}')">Next</button>
+                    {% endif %}
+                </article>
+            {% endfor %}
+            <input type="submit" value="View Results">
+        </form>
     </body>
 </html>
